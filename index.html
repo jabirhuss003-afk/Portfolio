@@ -427,55 +427,6 @@
   }
   .timeline-list li::before { content: '→'; color: var(--lavender); flex-shrink: 0; margin-top: 1px; }
 
-  /* PROJECT PREVIEW OVERLAY */
-  .proj-preview-hint {
-    margin-top: 14px;
-    font-size: 0.68rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(56,189,248,0.55);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    user-select: none;
-    transition: color 0.3s;
-  }
-  #proj-ecommerce:hover .proj-preview-hint,
-  #proj-ecommerce.preview-active .proj-preview-hint {
-    color: rgba(56,189,248,0.9);
-  }
-
-  .proj-preview-overlay {
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(10,22,40,0.18);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.45s ease;
-    z-index: 10;
-  }
-  #proj-ecommerce:hover .proj-preview-overlay,
-  #proj-ecommerce.preview-active .proj-preview-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .proj-preview-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    opacity: 0.22;
-    border-radius: 24px;
-    display: block;
-  }
-
   /* PROJECTS */
   #projects { padding: 120px 6%; }
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
@@ -904,18 +855,11 @@
       </div>
 
       <!-- Project 2 -->
-      <div class="project-card reveal" id="proj-ecommerce" style="position:relative;">
+      <div class="project-card reveal">
         <div class="proj-badge blue">Featured · 2024</div>
         <div class="proj-title">Mobile App UX Redesign — E-Commerce Checkout Flow</div>
         <div class="proj-tools"><span class="proj-tool">Figma</span></div>
         <p class="proj-desc">6-screen checkout redesign using the <span class="proj-highlight">Jobs-to-be-Done framework</span>. Ran usability tests with 8 participants, identified 5 critical pain points, and measurably reduced payment drop-off through evidence-based design decisions.</p>
-        <div class="proj-preview-hint">
-          <i class="fa-solid fa-hand-pointer"></i> Tap to preview design
-        </div>
-        <!-- Preview overlay (shown on touch/click) -->
-        <div class="proj-preview-overlay" id="preview-overlay">
-          <img src="assets/E-Commerce_Checkout_Flow_UX_Redesign.png" alt="E-Commerce Checkout Flow UX Redesign" class="proj-preview-img">
-        </div>
       </div>
 
       <!-- Project 3 -->
@@ -1091,20 +1035,6 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 revealEls.forEach(el => revealObserver.observe(el));
-
-// PROJECT PREVIEW — touch toggle for mobile
-const projCard = document.getElementById('proj-ecommerce');
-if (projCard) {
-  projCard.addEventListener('touchstart', () => {
-    projCard.classList.toggle('preview-active');
-  }, { passive: true });
-  // also close when tapping outside on mobile
-  document.addEventListener('touchstart', (e) => {
-    if (!projCard.contains(e.target)) {
-      projCard.classList.remove('preview-active');
-    }
-  }, { passive: true });
-}
 
 // SKILL BARS
 const skillBars = document.querySelectorAll('.skill-bar');
